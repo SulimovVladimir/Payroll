@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Payroll
 {
-    class Autthorization
+    class Employee
     {
     }
 }
