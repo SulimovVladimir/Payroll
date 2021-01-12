@@ -12,30 +12,34 @@ namespace Payroll
         public string LogIn(string input)
         {
             StreamReader sr = new StreamReader(path, Encoding.Default);
-            string sourse, line;
-            while ((line = sr.ReadLine()) != null)
+            try
             {
-                sourse = line;
-                string temp = Parse(ref line);
-                if (temp == input) return ParseTwo(sourse);
-                if (line != null)
+                string sourse, line;
+                while ((line = sr.ReadLine()) != null)
                 {
-                    if (line == input) return ParseTwo(sourse);
+                    sourse = line;
+                    string temp = Parse(ref line);
+                    if (temp == input) return ParseTwo(sourse);
+                    if (line != null)
+                    {
+                        if (line == input) return ParseTwo(sourse);
+                    }
                 }
+                return "Ошибка";
             }
-            return "Ошибка";
+            finally { sr.Close(); }
         }
 
         string Parse(ref string input)
         {
             byte position = (byte)input.IndexOf(",");
             string temp = input.Substring(0, position);
-            if (input.IndexOf(" ") == -1) { input = null; return temp; }
+            if (temp.IndexOf(" ") == -1) { input = null; return temp; }
             else
             {
                 position = (byte)temp.IndexOf(" ");
                 input = temp.Substring(0, position);
-                temp = temp.Substring(position, temp.Length - 1);
+                temp = temp.Substring(position+1, temp.Length-position-1);
                 return temp;
             }
         }
@@ -43,7 +47,7 @@ namespace Payroll
         string ParseTwo(string input)
         {
             byte position = (byte)input.IndexOf(",");
-            input = input.Substring(position, input.Length);
+            input = input.Substring(position+1, input.Length-position-1);
             return input;
         }
     }
