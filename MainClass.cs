@@ -16,7 +16,7 @@ namespace Payroll
                 switch (position)
                 {
                     case "Руководитель": { Leader leader = new Leader(); leader.Start(user); flagExit = true; break; }
-                    case "Сотрудник": { break; }
+                    case "Сотрудник": { Employee employee = new Employee(); employee.Start(user); flagExit = true; break; }
                     case "Фрилансер": { break; }
                     case "Ошибка": { Console.WriteLine("Такой сотрудник не найден, хотите попробывать еще раз ввести?(да)");
                                      if (Console.ReadLine() == "да") break;

@@ -25,7 +25,7 @@ namespace Payroll
                     case 1: { if (AddPeople()) Console.WriteLine("Сотрудник добавлен\n"); break; }
                     case 2: { break; }
                     case 3: { break; }
-                    case 4: { break; }
+                    case 4: { AddHourWork(); break; }
                     case 5: { flagExit = true; break; }
                     default: { Console.WriteLine("Неверно выбрано действие"); Menu(); break; }
                 
@@ -78,11 +78,23 @@ namespace Payroll
                 {
                     byte pozition = (byte)line.IndexOf(',');
                     line = line.Substring(0, pozition);
-                    if (line == input) return true;
+                    if (line.Contains(input)) return true;
                 }
                 return false;
             }
             finally { sr.Close(); }
+        }
+
+        void AddHourWork()
+        {
+            Console.Write("Ведите имя сотруднику, которому нужно добавить часы: ");
+            string name = Console.ReadLine();
+            if (FindPeople(name))
+            {
+                Employee employee = new Employee();
+                employee.AddHourWork(name);
+            }
+            else Console.WriteLine("Сотрудника с таким именем нет в нашей организации");
         }
     }
 }

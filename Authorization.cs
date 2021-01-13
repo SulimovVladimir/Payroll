@@ -8,7 +8,7 @@ namespace Payroll
     class Authorization
     {
         string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Список сотрудников.csv");
-
+       
         public string LogIn(string input)
         {
             StreamReader sr = new StreamReader(path, Encoding.Default);
