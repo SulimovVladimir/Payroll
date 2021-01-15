@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Payroll
 {
-    class Work
+    class Work      //класс общей функциональности программы
     {
         string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Список сотрудников.csv");
         string pathLeader = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Список отработанных часов руководителей.csv");
@@ -16,7 +16,7 @@ namespace Payroll
         const int salaryEmployee = 120000;
         const int salaryFreelancer = 1000;
 
-        public void AddHourWork(string input, string role)
+        public void AddHourWork(string input, string role)      //добавление часов работы
         {
             DateTime date = DateTime.Now; ;
             byte hour = 0;
@@ -38,7 +38,7 @@ namespace Payroll
             catch { Console.WriteLine("Неверно введены данные"); }
         }
 
-        bool GoodDate(DateTime date, string role)
+        bool GoodDate(DateTime date, string role)       //проверка корректности даты при добавление часов работы
         {
             DateTime dateReal = DateTime.Today;
             if (dateReal >= date && dateReal.AddDays(-15)<= date && (role == "Руководитель" || role == "Сотрудник")) return true;
@@ -46,7 +46,7 @@ namespace Payroll
             return false;
         }
 
-        public void ReportWork(string input, string role)
+        public void ReportWork(string input, string role)       //отчет по сотруднику
         {
             DateTime dateEnd = DateTime.Now;
             DateTime dateStart = dateEnd.AddDays(-dateEnd.Day + 1);
@@ -92,7 +92,7 @@ namespace Payroll
             Console.WriteLine("-------------------------------------------------");
         }
 
-        string DefinePath(string role)
+        string DefinePath(string role)      //определение расположения файла для разных должностей
         {
             switch (role)
             {
@@ -104,7 +104,7 @@ namespace Payroll
 
         }
 
-        string GoodHour(string input)
+        string GoodHour(string input)       //установка правильного падежа
         {
             byte hour = Convert.ToByte(input);
             if (hour >= 5) return "часов";
@@ -113,7 +113,7 @@ namespace Payroll
             return "";
         }
 
-        int GoodSalary(int hour, string role)
+        int GoodSalary(int hour, string role)       //расчет зарплаты
         {
             int CashHour;
             if (role == "Сотрудник")

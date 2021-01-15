@@ -5,11 +5,11 @@ using System.IO;
 
 namespace Payroll
 {
-    class Authorization
+    class Authorization         // авторизация пользователя по введенному имени
     {
         string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Список сотрудников.csv");
        
-        public string LogIn(string input)
+        public string LogIn(string input)   //метод поиска пользователя в списке сотрудников
         {
             StreamReader sr = new StreamReader(path, Encoding.Default);
             try
@@ -30,7 +30,7 @@ namespace Payroll
             finally { sr.Close(); }
         }
 
-        string Parse(ref string input)
+        string Parse(ref string input)  //разбиения строки из списка сотрудников на подстроки
         {
             byte position = (byte)input.IndexOf(",");
             string temp = input.Substring(0, position);
@@ -44,7 +44,7 @@ namespace Payroll
             }
         }
 
-        string ParseTwo(string input)
+        string ParseTwo(string input)  //извлечение роли из строки
         {
             byte position = (byte)input.IndexOf(",");
             input = input.Substring(position+1, input.Length-position-1);

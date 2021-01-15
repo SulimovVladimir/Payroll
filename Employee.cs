@@ -5,10 +5,10 @@ using System.IO;
 
 namespace Payroll
 {
-    class Employee
+    class Employee   //класс работы с сотрудниками
     {
 
-        public void Start(string input)
+        public void Start(string input)   //интерфейс для сотрудников
         {
             bool flagExit = false;
             Console.WriteLine("-------------------------------------------------");
@@ -35,7 +35,7 @@ namespace Payroll
             }
         }
 
-        void Menu()
+        void Menu()  //вывод возможных действий
         {
             Console.WriteLine("Что вы можете сделать в этой программе:\n(1). Добавить свои часы работы\n(2). " +
                               "Просмотреть свои отработанные часы и зарплату за период\n(3). Выход из программы");

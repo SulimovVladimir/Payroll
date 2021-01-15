@@ -5,9 +5,9 @@ using System.IO;
 
 namespace Payroll
 {
-    class Freelancer
+    class Freelancer        //класс работы с фрилансерами
     {
-        public void Start(string input)
+        public void Start(string input)     //интерфейс для фрилансеров
         {
             bool flagExit = false;
             Console.WriteLine("-------------------------------------------------");
@@ -34,7 +34,7 @@ namespace Payroll
             }
                 catch { Console.WriteLine("!!!!! Неверно выбрано действие !!!!!"); Menu(); }
         }
-            void Menu()
+            void Menu()     //возможные действия для сотрудников
             {
                 Console.WriteLine("Что вы можете сделать в этой программе:\n(1). Добавить свои часы работы\n(2). " +
                                   "Просмотреть свои отработанные часы и зарплату за период\n(3). Выход из программы");

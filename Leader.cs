@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace Payroll
+namespace Payroll       //класс работы с руководителями
 {
     class Leader
     {
@@ -13,7 +13,7 @@ namespace Payroll
         string pathFreelancer = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Список отработанных часов фрилансер.csv");
         List<string> AllEmloyee = new List<string>();
 
-        public void Start(string input)
+        public void Start(string input)     //интерфейс для руководителей
         {
             bool flagExit=false;
             Console.WriteLine("-------------------------------------------------");
@@ -44,13 +44,13 @@ namespace Payroll
             }
         }
 
-        void Menu ()
+        void Menu ()    //возможные действия для руководителей
         {
             Console.WriteLine("Что вы можете сделать в этой программе:\n(1). Добавить сотрудника\n(2). Просмотреть отчет по всем сотрудникам\n" +
                               "(3). Просмотреть  отчет по конкретному сотруднику\n(4). Добавить часы работы\n(5). Выход из программы");
         }
 
-        bool AddPeople()
+        bool AddPeople()    // добавления сотрудника
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Payroll
             }
         }
 
-        bool FindPeople(string input)
+        bool FindPeople(string input)       //поиск сотрудника в списке сотрудников
         {
             StreamReader sr = new StreamReader(path, Encoding.Default);
             try
@@ -96,7 +96,7 @@ namespace Payroll
             finally { sr.Close(); }
         }
 
-        void AddHourWork()
+        void AddHourWork()      //добавление часов сотруднику
         {
             Console.Write("Ведите имя сотруднику, которому нужно добавить часы: ");
             string name = Console.ReadLine();
@@ -109,7 +109,7 @@ namespace Payroll
             else Console.WriteLine("Сотрудника с таким именем нет в нашей организации");
         }
 
-        void ReportWork()
+        void ReportWork()       //отчет по работе по конкретному сотруднику
         {
             Console.Write("Ведите имя сотруднику, по которому запрашивается отчет: ");
             string name = Console.ReadLine();
@@ -121,7 +121,7 @@ namespace Payroll
             else Console.WriteLine("Сотрудника с таким именем нет в нашей организации");
         }
 
-        void ReportAllWork()
+        void ReportAllWork()        //отчет по работе по всем сотрудникам
         {
             ListEmployee();
             DateTime dateEnd = DateTime.Now;
@@ -150,7 +150,7 @@ namespace Payroll
             Console.WriteLine($"Всего в период отработано {totalHour} часов, сумма к выплате {totalSalary} руб.");
         }
 
-        void Report(ref int totalHour, ref int totalSalary, string specialpath, string role)
+        void Report(ref int totalHour, ref int totalSalary, string specialpath, string role)        //вспомогательный метод для формирования отчета по всем сотрудникам
         {
             foreach (string name in AllEmloyee)
             {
@@ -196,7 +196,7 @@ namespace Payroll
             }
         }
 
-        void ListEmployee()
+        void ListEmployee()     //формирование списка сотрудников
         {
             AllEmloyee.Clear();
             StreamReader sr = new StreamReader(path, Encoding.Default);
@@ -208,7 +208,7 @@ namespace Payroll
             }
         }
 
-        string ReturnRole(string name)
+        string ReturnRole(string name)      //метод определения должности по имени сотрудника
         {
             StreamReader sr = new StreamReader(path, Encoding.Default);
             string line;
@@ -218,6 +218,6 @@ namespace Payroll
                 if (name == mas[1]) return mas[2];
             }
             return null;
-        }
+        }       
     }
 }

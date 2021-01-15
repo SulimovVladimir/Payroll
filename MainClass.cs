@@ -2,7 +2,7 @@
 
 namespace Payroll
 {
-    class MainClass
+    class MainClass  //приветственное окно программы с выбором пользователя
     {
         static void Main()
         {
