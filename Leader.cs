@@ -18,12 +18,13 @@ namespace Payroll
             bool flagExit=false;
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine($"Здравствуйте, {input}!\nВаша должность: руководитель.");
-            Console.WriteLine("-------------------------------------------------");
+            
             Menu();
             while (!flagExit)
             {
                 try
                 {
+                    Console.WriteLine("-------------------------------------------------");
                     Console.Write("Выберите желаемое действие: ");
                     byte marker = Convert.ToByte(Console.ReadLine());
                     switch (marker)
@@ -64,9 +65,7 @@ namespace Payroll
                 switch (role)
                 {
                     case 1: { sw.WriteLine($"{name},Руководитель"); break; }
-                    case 2: { 
-                            sw.WriteLine($"{name},Сотрудник"); 
-                            break; }
+                    case 2: { sw.WriteLine($"{name},Сотрудник"); break; }
                     case 3: { sw.WriteLine($"{name},Фрилансер"); break; }
                 }
                 sw.Close();
@@ -103,20 +102,21 @@ namespace Payroll
             string name = Console.ReadLine();
             if (FindPeople(name))
             {
-                Employee employee = new Employee();
-                employee.AddHourWork(name);
+
+                Work work = new Work();
+                work.AddHourWork(name, ReturnRole(name));
             }
             else Console.WriteLine("Сотрудника с таким именем нет в нашей организации");
         }
 
         void ReportWork()
         {
-            Console.Write("Ведите имя сотруднику, по которомузапрашивается отчет: ");
+            Console.Write("Ведите имя сотруднику, по которому запрашивается отчет: ");
             string name = Console.ReadLine();
             if (FindPeople(name))
             {
-                Employee employee = new Employee();
-                employee.ReportWork(name);
+                Work work = new Work();
+                work.ReportWork(name, ReturnRole(name));
             }
             else Console.WriteLine("Сотрудника с таким именем нет в нашей организации");
         }
@@ -137,9 +137,9 @@ namespace Payroll
             }
             catch
             {
-                Console.WriteLine("Не верный ввод даты");
+                Console.WriteLine("Не верный ввод даты, для вывода будет использован текущий месяц");
             }
-            Console.WriteLine($"Отчет за период c {dateStart} по {dateEnd}:") ;
+            Console.WriteLine($"Отчет за период c {dateStart.ToShortDateString()} по {dateEnd.ToShortDateString()}:") ;
             Console.WriteLine("----- Руководители ------");
             Report(ref totalHour, ref totalSalary, pathLeader, "Руководитель");
             Console.WriteLine("-----  Сотрудники  ------");
@@ -152,9 +152,9 @@ namespace Payroll
 
         void Report(ref int totalHour, ref int totalSalary, string specialpath, string role)
         {
-            StreamReader sr = new StreamReader(specialpath, Encoding.Default);
             foreach (string name in AllEmloyee)
             {
+                StreamReader sr = new StreamReader(specialpath, Encoding.Default);
                 var hourEployee = 0;
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -192,8 +192,8 @@ namespace Payroll
                             }
                     }   
                 }
+                sr.Close();
             }
-            sr.Close();
         }
 
         void ListEmployee()
@@ -206,6 +206,18 @@ namespace Payroll
                 string[] mas = line.Split(' ',',');
                 AllEmloyee.Add(mas[1]);
             }
+        }
+
+        string ReturnRole(string name)
+        {
+            StreamReader sr = new StreamReader(path, Encoding.Default);
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] mas = line.Split(' ',',');
+                if (name == mas[1]) return mas[2];
+            }
+            return null;
         }
     }
 }
